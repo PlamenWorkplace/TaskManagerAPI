@@ -1,0 +1,24 @@
+{
+  "name": "taskmanagerapi",
+  "version": "1.0.0",
+  "description": "API Gateway for Task Manager",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlamenWorkplace/TaskManagerAPI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PlamenWorkplace/TaskManagerAPI/issues"
+  },
+  "homepage": "https://github.com/PlamenWorkplace/TaskManagerAPI#readme",
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "express": "^4.18.2"
+  }
+}
