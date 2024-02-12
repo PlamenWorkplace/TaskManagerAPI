@@ -1,17 +1,21 @@
 import express from "express";
+import http from "http";
 import RabbitMQ from "./src/rabbitmq/RabbitMQ.js";
+import userController from "./src/controllers/UserController.js";
+import { handleMessage } from "./src/controllers/TaskController.js";
+import { WebSocketServer } from "ws";
 
-const server = express();
-server.use(express.json());
+const api = express();
+const server = http.createServer(api);
+const wss = new WebSocketServer({ server: server, path: "/task" });
 
-server.post("/user/login", async (req, res) => {
-    const response = await RabbitMQ.sendUser("login", req.body);
-    res.send(response);
-});
+api.use(express.json());
+api.use("/user", userController);
 
-server.post("/user/signup", async (req, res) => {
-    const response = await RabbitMQ.sendUser("signup", req.body);
-    res.send(response);
+wss.on('connection', ws => {
+    ws.on('message', async message => {
+        await handleMessage(ws, message);
+    });
 });
 
 server.listen(3000, RabbitMQ.initialize());
